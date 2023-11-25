@@ -31,7 +31,7 @@ function start_game(){
     canvas.onclick = '';
     score = 0;
     rect_x = (-1 * rect_width);
-    rect_x = (0.5 * canvas_height);
+    rect_y = (0.5 * canvas_height);
     oil_y = canvas_height / 2;
     voltage_input.disabled = false;
     interval = setInterval(draw_circle, drawing_interval);
