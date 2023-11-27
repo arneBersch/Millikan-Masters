@@ -11,10 +11,12 @@ const rect_start_speed = 5000;
 const oil_radius = 50;
 const max_voltage = 500;
 const voltage_sensitivity = 0.1;
+const voltage_exponential = 0.003;
 var interval;
 const drawing_interval = 20;
 var oil_x = 800;
 var oil_y;
+var oil_dy;
 var score;
 var highscore;
 
@@ -39,6 +41,7 @@ function start_game(){
     rect_x = (-1 * rect_width);
     rect_y = (0.5 * canvas_height);
     oil_y = canvas_height / 2;
+    oil_dy = 0;
     voltage_input.value = (max_voltage / 2);
     voltage_input.disabled = false;
     interval = setInterval(draw_circle, drawing_interval);
@@ -68,8 +71,10 @@ function draw_circle(){
     context.clearRect(0, 0, canvas_width, canvas_height);
     score += 1;
     var voltage = voltage_input.value;
-    let oil_dy = (voltage - (max_voltage / 2)) * voltage_sensitivity;
+    voltage = (voltage - (max_voltage / 2));
+    oil_dy += (voltage * voltage_exponential);
     oil_y += oil_dy;
+    oil_y += (voltage * voltage_sensitivity);
     context.strokeStyle = 'white';
     context.lineWidth = 10;
     context.strokeRect(rect_x, rect_y, rect_width, rect_height);
